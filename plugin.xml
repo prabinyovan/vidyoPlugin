@@ -82,6 +82,9 @@
 	
 	<source-file src="src/android/res/raw/sample_file.crt" target-dir="res/raw/"/>
 	
+	<source-file src="src/android/res/drawable/green_button.xml" target-dir="res/drawable/"/>
+	<source-file src="src/android/res/drawable-hdpi/vidyo.png" target-dir="res/drawable-hdpi/"/>
+	
 	
 	
   </platform>
