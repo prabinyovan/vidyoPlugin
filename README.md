@@ -18,6 +18,10 @@
  
  `ionic plugin add https://github.com/prabinyovan/vidyoPlugin.git`  
  
+ or download the code and add it 
+ 
+ `ionic plugin add ../locationFolderName`  
+ 
  This will add the plugin into your ionic project You can find that at
  `MyApp\Plugins\com.vidyo.vidyosample.activity`  
  
