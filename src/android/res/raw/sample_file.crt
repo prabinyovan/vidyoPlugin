@@ -80,8 +80,6 @@
 	
 	<source-file src="src/android/res/raw/mobile_waiting_room.mp4" target-dir="res/raw/"/>
 	
-	<source-file src="src/android/res/raw/sample_file.crt" target-dir="res/raw/"/>
-	
 	
 	
   </platform>

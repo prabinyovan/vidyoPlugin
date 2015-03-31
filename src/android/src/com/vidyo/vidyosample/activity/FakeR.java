@@ -40,11 +40,6 @@ public class FakeR {
 	}
 
 	public int getId(String group, String key) {
-		if(key == "ca_certificates")
-		{
-			Log.e("raw", ">>>>>>>>>>>>>>>");
-			Log.e("raw", ">>>>>>>>>>>>>>> PACKAGE : " + packageName);
-		}
 		return context.getResources().getIdentifier(key, group, packageName);
 	}
 

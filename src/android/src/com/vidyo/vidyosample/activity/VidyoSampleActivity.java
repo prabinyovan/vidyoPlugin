@@ -144,16 +144,28 @@ public class VidyoSampleActivity extends Activity implements
 		
 		message_handler = new MessageHandler(this);
 
-		Object object = (Object)getApplication();
+		Object object = (Object)getApplicationContext();
+		
+		Log.e(TAG, ">>>>>>>>>>>> Object.getClass : " + object.getClass().toString());
+		
+		
 		if (object instanceof ApplicationJni) {
 			app = (ApplicationJni)object;
 		} else {
 			app = null;
+			/*
+			try{
+				app = (ApplicationJni)object;
+			}catch(Exception e){
+			
+			}*/
 		}
 		
 		if (app != null) {
-			Log.d(TAG, "ApplicationJni has been set correct!!!");
+			Log.e(TAG, ">>>>>>>>>>>>>>>> ApplicationJni has been set correct!!!");
 			constructJniInterface();
+		}else{
+			Log.e(TAG, ">>>>>>>>>>>>>>>> ApplicationJni has not been set correct!!!");
 		}
 		
 		final Bundle bundle = getIntent().getExtras();
@@ -281,7 +293,19 @@ public class VidyoSampleActivity extends Activity implements
 	    
 		final String caFileName = writeCaCertificates();
 		
-		app.initialize(caFileName, this);
+		Log.e(TAG, ">>>>>>>>>>>>>> writeCaCertificates call completed!");
+		Log.e(TAG, ">>>>>>>>>>>>>> going to app.initialize..");
+		try{
+			app.initialize(caFileName, this);
+			Log.e(TAG, ">>>>>>>>>>>>>> app.initialize completed");
+		}catch(Exception e){
+			Log.e(TAG, ">>>>>>>>>>>>>> app.initialize failed");
+			Log.e(TAG, ">>>>>>>>>>>>>> APP INIT ERROR : ");
+			Log.e(TAG, ">>>>>>>>>>>>>> " + e.getMessage());
+		}
+		
+		
+		
 	}
 	
 	private void startEngagement() {
@@ -336,21 +360,26 @@ public class VidyoSampleActivity extends Activity implements
 	
 	private String writeCaCertificates() {
 		try {
-			Log.e("raw", ">>>>>>>>>>>>>>>");
-			int i = fakeR.getId("raw", "ca-certificates");
-			Log.e("raw", ">>>>>>>>>>>>>>>" + Integer.toString(i));
+			int i = fakeR.getId("raw", "ca_certificates");
+			Log.e("raw", ">>>>>>>>>>>>>>> Cert id is : " + Integer.toString(i));
+			
 			final InputStream caCertStream = getResources().openRawResource(fakeR.getId("raw", "ca_certificates"));
+			
 			Log.e("raw", ">>>>>>>>>>>>>>>" + Integer.toString(i));
+			
 			File caCertDirectory = null;
 			try {
 				String pathDir = Utils.getAndroidInternalMemDir(this);
 				caCertDirectory = new File(pathDir);
+				Log.e(TAG, ">>>>>>>>>>>>>>>>>> pathDir is : " + pathDir);
 			} catch (Exception e) {
 				Log.e(TAG, "Something went wrong getting the pathDir");
 				return null;
 			}
 			
  			File caFile = new File(caCertDirectory,"ca-certificates.crt");
+			
+			Log.e(TAG, ">>>>>>>>>>>>>>>>>> caFile generated!");
 			
 			final FileOutputStream caCertFile = new FileOutputStream(caFile);
 			final byte buf[] = new byte[1024];
@@ -360,7 +389,9 @@ public class VidyoSampleActivity extends Activity implements
 			}
 			caCertStream.close();
 			caCertFile.close();
-
+			
+			Log.e(TAG, ">>>>>>>>>>>>>>>>>> caFile getpath : " + caFile.getPath());
+			
 			return caFile.getPath();
 		}
 		catch (final Exception e) {
